@@ -14,8 +14,11 @@ from common.trainer import Trainer
 x_train = x_train[:300]
 t_train = t_train[:300]
 
+# Dropuoutの有無、割り合いの設定 ========================
 use_dropout = True  # Dropoutなしのときの場合はFalseに
-dropout_ratio = 0.15
+dropout_ratio = 0.2
+# ====================================================
+
 network = MultiLayerNetExtend(input_size=784, hidden_size_list=[100, 100, 100, 100, 100, 100],
                               output_size=10, use_dropout=use_dropout, dropout_ration=dropout_ratio)
 trainer = Trainer(network, x_train, t_train, x_test, t_test,
@@ -23,7 +26,7 @@ trainer = Trainer(network, x_train, t_train, x_test, t_test,
                   optimizer='sgd', optimizer_param={'lr': 0.01}, verbose=True)
 trainer.train()
 
-train_acc_list, test_acc_list = trainer.test_acc_list, trainer.train_acc_list
+train_acc_list, test_acc_list = trainer.train_acc_list, trainer.test_acc_list
 
 # グラフの描画==========
 markers = {'train': 'o', 'test': 's'}
